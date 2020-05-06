@@ -3,5 +3,5 @@ pause
 
 git add .
 git commit -m "Sync Saves"
-git merge
+git pull
 git push -u origin master

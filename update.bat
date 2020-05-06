@@ -6,5 +6,5 @@ pause
 
 git add .
 git commit -m "Update GUI"
-git merge
+git pull
 git push -u origin master
