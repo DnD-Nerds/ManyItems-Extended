@@ -14,6 +14,13 @@ The README is a guide on how to use the app, a changelog, and answers to questio
 you may have.
 
 
+**Data Saving**
+Use __sync.bat__ to upload your new saves and/or get saves from the cloud.
+
+**GUI Updates**
+Use __update.bat__ to upload changes to the GUI. Please do not use that file if you're just syncing saves.
+
+
 Weapon Creation:
 -- Weapon creation is currently the only item available to create since this is the Alpha --
 
