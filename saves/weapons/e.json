@@ -1,0 +1,16 @@
+{
+    "customDamage": {
+        "base": {
+            "damage": "e",
+            "damageType": "e",
+            "range": "e"
+        }
+    },
+    "name": "e",
+    "type": "e",
+    "rarity": "e",
+    "author": "e",
+    "itemID": "e",
+    "finalNotes": "e",
+    "itemVersion": "Alpha v1.6"
+}
