@@ -7,12 +7,20 @@ import re
 import os
 import json
 
+import time
+
 import subprocess
 
 currentVersion = "Alpha v1.6"
 
 subprocess.run("git pull origin master")
 print("\nDownloaded saves")
+
+if not os.path.exists(os.getcwd() + "\\environment") or not os.path.exists(os.getcwd() + "\\environment\\version.txt"):
+    print("\nYikes uh it looks like you deleted the environment stuff... this makes ManyItems angery :(")
+    print("The {0}\\environment folder tracks things like the true version to make sure that you're running on the right version.".format(os.getcwd()))
+    print("\nPlease git pull and restart the app.")
+    time.sleep(1000)
 
 main = tk.Tk(className="ManyItems")
 
