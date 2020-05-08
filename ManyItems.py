@@ -7,7 +7,12 @@ import re
 import os
 import json
 
+import subprocess
+
 currentVersion = "Alpha v1.6"
+
+subprocess.run("git pull origin master")
+print("\nDownloaded saves")
 
 main = tk.Tk(className="ManyItems")
 
