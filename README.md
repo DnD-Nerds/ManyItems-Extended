@@ -1,39 +1,45 @@
-*This probably won't be updated regularly*
-*Version last updated: Alpha v1.6*
+# ManyItems
+> A Python TK GUI made for RPG and DnD players/creators to make and use items.
 
-*And uh if you're reading this shit and expecting me to have actually finished a README then you're on a new kind of meth*
+Version: Alpha v1.7
+Known bugs: None
+Pip Package: Pending
+
+### Developers
+
+[![WubzyGD](https://cdn.discordapp.com/avatars/330547934951112705/999411b3f6e3eb3c93c17555c811ccd8.png?size=32)](https://github.com/WubzyGD "Wubzy's GitHub") WubzyGD - Primary
+[![Foriobob](https://cdn.discordapp.com/avatars/497598953206841375/a1fcad03fc97af7cda4be29f2669e407.png?size=32)](https://github.com/Foriobob "Foriobob's GitHub") Foriobob - Testing/Secondary
+
+---
+
+### Changelog
+_Version: Alpha v1.7_
+
+- Added the item registry. This will allow for viewing items stylisitically, as well as other improvements in the future.
+- Added the ability to view items. This is currently a base functionality and will be improved in the future
+  - Items are viewed by searching by ID or by sidescrolling. This will be made more efficient.
+- Added quit without saving feature for custom damage stats. 
+  - This does not currently sync with mods, so if you save a mod, it will still be saved even if you don't save custom damage stats.
+- Began work on DnD stats
+  - Created the DnD window
+  - Added base damage
+    - Dice to roll
+    - Modifiers
+    - Damage type(s)
+  - Saving stats
+  - Quitting without saving stats
+  - Afflictions
+    - Positive to user
+    - Negative to user
+    - Negative to attackee
+  - Setup mod areas (unfinished feature)
+- Added weight and durability to the master item window
+- Did more work on CD mods
+
+---
+
+# Features/How to Use
+
+### Weapons
 
 
-Made by **WubzyGD**
-
-Discord: **WubzyGD#8766**
-
-*You're insane if you think I have anything else to give you to contact me on*
-
-*And uh if you bomb my Discord you die. That's a promise.*
-
-
-
-The README is a guide on how to use the app, a changelog, and answers to questions
-you may have.
-
-
-
-**Data Saving**
-
-Use __sync.bat__ to upload your new saves and/or get saves from the cloud.
-
-**GUI Updates**
-
-Use __update.bat__ to upload changes to the GUI. Please do not use that file if you're just syncing saves.
-
-
-Weapon Creation:
-
-*Weapon creation is currently the only item available to create since this is the Alpha*
-
-If this is your first-time use, you'll need to click on "New Weapon".
-You'll then get the base window for a weapon. Don't worry, there's plenty more windows
-and doohickeys that're gonna be made. Good luck keeping track of it all :)
-
-At the top are three stats.
