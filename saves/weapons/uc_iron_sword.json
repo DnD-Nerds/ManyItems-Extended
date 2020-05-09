@@ -1,0 +1,16 @@
+{
+    "customDamage": {
+        "base": {
+            "damage": "15",
+            "damageType": "Slashing",
+            "range": "20ft"
+        }
+    },
+    "name": "Iron Sword",
+    "type": "Sword",
+    "rarity": "Uncommon",
+    "author": "WubzyGD",
+    "itemID": "uc_iron_sword",
+    "finalNotes": "Basic sword found in almost any shop; no special qualities about it.",
+    "itemVersion": "Alpha v1.7"
+}
