@@ -35,6 +35,7 @@ _Version: Alpha v1.7_
   - Setup mod areas (unfinished feature)
 - Added weight and durability to the master item window
 - Did more work on CD mods
+- Saving an item now permits empty fields. It will notify you that you have empty fields, but allow the creation of the weapon anyways
 
 ---
 
