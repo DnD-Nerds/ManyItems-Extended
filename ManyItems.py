@@ -223,6 +223,11 @@ def makeNewItem(save=None):
         tempItem["itemVersion"] = currentVersion
 
         passed = True
+
+        for k in tempItem:
+            if tempItem[k] == "" or len(tempItem[k]) < 1:
+                showinfo(title="Missing Field Data", message="Your weapon is missing data in some fields.\n\nYou can use the \"Quit\" button to exit without saving, or make sure all your fields are filled in before continuing. Your weapon will still be saved without field data, but it isn't preferred that you leave things blank.")
+                break
         
         if passed == True:
             validID = re.search(r"^[a-zA-Z0-9_\-]+$", tempItem["itemID"])
