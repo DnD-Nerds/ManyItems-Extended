@@ -23,8 +23,8 @@ if not os.path.exists(os.getcwd() + "\\environment") or not os.path.exists(os.ge
     time.sleep(15)
     subprocess.run("exit")
 
-with open(os.getcwd() + "\\environment\\version.txt") as versionFile:
-    if not versionFile == currentVersion:
+with open(os.getcwd() + "\\environment\\version.txt", "r") as versionFile:
+    if not versionFile.read() == currentVersion:
         print("\nYou don't seem to be on the current version! Try restarting the app or syncing.")
         time.sleep(15)
         subprocess.run("exit")
