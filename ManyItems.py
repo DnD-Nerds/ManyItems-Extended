@@ -69,6 +69,9 @@ def makeNewItem(save=None):
     rarityField = tk.Entry(nameFrame)
     rarityField.grid(row=2, sticky=tk.W, column=1)
 
+    if not "customDamage" in tempItem:
+        tempItem["customDamage"] = {"base": {"damage": "", "damageType": "", "range": ""}}
+
     def openCustomDamage():
         customDamageWin = tk.Toplevel(itemWin)
         tk.Label(customDamageWin, text="Customize Weapon Damage").grid(row=0)
@@ -90,9 +93,6 @@ def makeNewItem(save=None):
            CDF_damageField.insert(0, tempItem["customDamage"]["base"]["damage"])
            CDF_damageTypeField.insert(0, tempItem["customDamage"]["base"]["damageType"])
            CDF_rangeField.insert(0, tempItem["customDamage"]["base"]["range"])
-        else:
-            tempItem["customDamage"] = {"base": {"damage": "", "damageType": "", "range": ""}}
-
         CDF_ModFrame = tk.Frame(customDamageWin, padx=5, pady=5)
         tk.Label(CDF_ModFrame, text="Modifiers").grid(row=0, pady=7)
         def moddmginfo(): showinfo(title="Custom Damage: Base Modifiers", message="Base Modifiers (often referred to as \"mods\") are optional ways to make your weapon do many different things, such as adding randomization to your base damage, and adding strengths and weaknesses to it.\n\nThese can be overidden by attacks [Not yet implemented] or modified on in attacks.")
@@ -140,11 +140,6 @@ def makeNewItem(save=None):
             slugField.grid(row=1, column=1, sticky=tk.W)
 
             def finishBaseMod():
-                """print("-----> Base Mod {0} creation completed.")
-                if randomEnabled == False:
-                    print("--------> Got no random mod.")
-                else:
-                    pass"""
                 baseModWin.destroy()
             tk.Button(baseModWin, text="Finish", command=finishBaseMod).grid(row=5)
             def confNoSaveBM():
@@ -262,6 +257,24 @@ def makeNewItem(save=None):
                 json.dump(tempItem, save, indent=4)
                 save.close()
             print("-----> Saved your weapon successfully under " + tfile + "\\saves\\weapons\\" + tempItem["itemID"] + ".json\n")
+
+            global registry
+            registry = {"weapon_IDs": []}
+            if not os.path.exists(tfile + "\\saves\\registry"):
+                os.mkdir(path=tfile + "\\saves\\registry")
+                print("-----> Created registry directory.\n")
+            if os.path.exists(tfile + "\\saves\\registry\\weapons.json"):
+                with open(tfile + "\\saves\\registry\\weapons.json", "r") as weapons_registry:
+                    registry = json.load(weapons_registry)
+                    weapons_registry.close()
+                os.remove(tfile + "\\saves\\registry\\weapons.json")
+            #print(registry)
+            with open(tfile + "\\saves\\registry\\weapons.json", "w") as weapons_registry:
+                if not tempItem["itemID"] in registry["weapon_IDs"]:
+                    registry["weapon_IDs"].append(tempItem["itemID"])
+                json.dump(registry, weapons_registry, indent=4, sort_keys=False)
+                print("-----> Updated registry.\n")
+                weapons_registry.close()
 
             itemWin.destroy()
             print("-----> Item creation completed.\n")
