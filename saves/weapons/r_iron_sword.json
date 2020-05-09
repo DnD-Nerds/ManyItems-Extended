@@ -1,0 +1,16 @@
+{
+    "customDamage": {
+        "base": {
+            "damage": "30",
+            "damageType": "Slashing",
+            "range": "20ft"
+        }
+    },
+    "name": "Iron Sword II",
+    "type": "Sword",
+    "rarity": "Rare",
+    "author": "WubzyGD",
+    "itemID": "r_iron_sword",
+    "finalNotes": "A slightly better version of the basic iron sword. Made with sturdier metal and better craftsmanship, it is more durable and trustworthy.",
+    "itemVersion": "Alpha v1.7"
+}
