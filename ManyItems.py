@@ -13,14 +13,21 @@ import subprocess
 
 currentVersion = "Alpha v1.6"
 
-subprocess.run("git pull origin master")
+subprocess.run("\"download.bat\"")
 print("\nDownloaded saves")
 
 if not os.path.exists(os.getcwd() + "\\environment") or not os.path.exists(os.getcwd() + "\\environment\\version.txt"):
     print("\nYikes uh it looks like you deleted the environment stuff... this makes ManyItems angery :(")
     print("The {0}\\environment folder tracks things like the true version to make sure that you're running on the right version.".format(os.getcwd()))
     print("\nPlease git pull and restart the app.")
-    time.sleep(1000)
+    time.sleep(15)
+    subprocess.run("exit")
+
+with open(os.getcwd() + "\\environment\\version.txt") as versionFile:
+    if not versionFile == currentVersion:
+        print("\nYou don't seem to be on the current version! Try restarting the app or syncing.")
+        time.sleep(15)
+        subprocess.run("exit")
 
 main = tk.Tk(className="ManyItems")
 
