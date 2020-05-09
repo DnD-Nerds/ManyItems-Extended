@@ -11,7 +11,7 @@ import time
 
 import subprocess
 
-currentVersion = "Alpha v1.6"
+currentVersion = "Alpha v1.7"
 
 subprocess.run("\"download.bat\"")
 print("\nDownloaded saves")
