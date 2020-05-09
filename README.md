@@ -1,13 +1,13 @@
 # ManyItems
 > A Python TK GUI made for RPG and DnD players/creators to make and use items.
 
-Version: Alpha v1.7
-Known bugs: None
-Pip Package: Pending
+Version: Alpha v1.7  
+Known bugs: None  
+Pip Package: Pending  
 
 ### Developers
 
-[![WubzyGD](https://cdn.discordapp.com/avatars/330547934951112705/999411b3f6e3eb3c93c17555c811ccd8.png?size=32)](https://github.com/WubzyGD "Wubzy's GitHub") WubzyGD - Primary
+[![WubzyGD](https://cdn.discordapp.com/avatars/330547934951112705/999411b3f6e3eb3c93c17555c811ccd8.png?size=32)](https://github.com/WubzyGD "Wubzy's GitHub") WubzyGD - Primary  
 [![Foriobob](https://cdn.discordapp.com/avatars/497598953206841375/a1fcad03fc97af7cda4be29f2669e407.png?size=32)](https://github.com/Foriobob "Foriobob's GitHub") Foriobob - Testing/Secondary
 
 ---
