@@ -325,7 +325,8 @@ def makeNewItem(save=None):
                 json.dump(registry, weapons_registry, indent=4, sort_keys=False)
                 print("-----> Updated registry.\n")
                 weapons_registry.close()
-
+            subprocess.run("\"sync.bat\"")
+            print("---> Synced save to GitHub.\n")
             itemWin.destroy()
             print("-----> Item creation completed.\n")
     def confNoSave():

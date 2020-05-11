@@ -1,0 +1,16 @@
+{
+    "customDamage": {
+        "base": {
+            "damage": "135",
+            "damageType": "Slashing, Holy",
+            "range": "25ft"
+        }
+    },
+    "name": "Sword of Sath",
+    "type": "Longsword",
+    "rarity": "Exalted",
+    "author": "WubzyGD",
+    "itemID": "ex_sword_of_sath",
+    "finalNotes": "This is the base sword of Sath that Sath materializes at the command of her Bonded. The sword is long, majestic, blue, and extremely lightweight.",
+    "itemVersion": "Alpha v1.7"
+}
