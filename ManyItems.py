@@ -325,9 +325,9 @@ def makeNewItem(save=None):
                 json.dump(registry, weapons_registry, indent=4, sort_keys=False)
                 print("-----> Updated registry.\n")
                 weapons_registry.close()
+            itemWin.destroy()
             subprocess.run("\"sync.bat\"")
             print("\n---> Synced save to GitHub.\n")
-            itemWin.destroy()
             print("-----> Item creation completed.\n")
     def confNoSave():
         if askyesno(title="Confirm", message="Are you sure you want to leave without saving?"):
@@ -395,13 +395,17 @@ def viewWeapons():
         if not registry["weapon_IDs"].index(toSearchFor) + 2 > len(registry["weapon_IDs"]):
             searchBox.insert(0, registry["weapon_IDs"][registry["weapon_IDs"].index(toSearchFor) + 1])
             searchWeapon()
+    def loadThisItem():
+        wViewWin.destroy()
+        makeNewItem(toSearchFor)
     searchFrame = tk.Frame(wViewWin, padx=5, pady=5)
     searchFrame.grid(row=0, sticky=tk.W)
     tk.Button(searchFrame, text="Search by ID", command=searchWeapon).grid(row=0, sticky=tk.W)
     searchBox = tk.Entry(searchFrame)
     searchBox.grid(row=0, column=1)
+    tk.Button(wViewWin, text="Edit this Item", command=loadThisItem).grid(row=1, sticky=tk.W)
     statsFrame = tk.Frame(wViewWin, padx=5, pady=5)
-    statsFrame.grid(row=1, sticky=tk.W)
+    statsFrame.grid(row=2, sticky=tk.W)
     tk.Label(statsFrame, text="Weapon Stats", fg="crimson").grid(row=0)
     namel = tk.Label(statsFrame, text="Weapon Name:", wraplength=300)
     namel.grid(row=1, sticky=tk.W)
@@ -418,11 +422,13 @@ def viewWeapons():
     versionl = tk.Label(statsFrame, text="Version created in:", wraplength=300)
     versionl.grid(row=7, sticky=tk.W)
     navFrame = tk.Frame(wViewWin, padx=5, pady=5)
-    navFrame.grid(row=2)
+    navFrame.grid(row=3)
     tk.Button(navFrame, text="<", width=4, command=goLeft).grid(row=0)
     posl = tk.Label(navFrame, text="0 of 0")
     posl.grid(row=0, column=1)
     tk.Button(navFrame, text=">", width=4, command=goRight).grid(row=0, column=2)
+    def endView(): wViewWin.destroy()
+    tk.Button(wViewWin, text="Finish", command=endView).grid(row=4)
     registry = {}
     with open(os.getcwd() + "\\saves\\registry\\weapons.json", "r") as weapons_registry:
         registry = json.load(weapons_registry)

@@ -1,0 +1,16 @@
+{
+    "customDamage": {
+        "base": {
+            "damage": "275",
+            "damageType": "Slashing, Holy, Magic",
+            "range": "25ft, 120ft"
+        }
+    },
+    "name": "Golden Sword of Sath",
+    "type": "Longsword -> Magic",
+    "rarity": "Exalted",
+    "author": "WubzyGD",
+    "itemID": "ex_golden_sword_of_sath",
+    "finalNotes": "This is the golden sword variant of Sath that the Golden Warrior creates during transference. The sword is long, majestic, golden, and extremely lightweight. It also has magical capabilities, such as teleportation and manifestation of solid slices and mirages, among other things.",
+    "itemVersion": "Alpha v1.7"
+}
