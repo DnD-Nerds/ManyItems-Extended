@@ -16,6 +16,56 @@ currentVersion = "Alpha v1.7"
 subprocess.run("\"download.bat\"")
 print("\nDownloaded saves")
 
+class Weapon:
+    """Creates a new ManyItems Weapon. The class instance will need to be passed into functions in the future.
+    
+    Params:
+    1. name: The weapon's display name.
+    2. type: The type of weapon. For instance, sword.
+    3. rarity: The weapon's rarity. Use Weapon#viewRarities() to see a list of recommended rarities.
+    4. itemID: The ID of the weapon. These must be unique between weapons, and may contain [a-zA-Z0-0-_]"""
+
+    def __init__(self, name, wType, rarity, itemID):
+        self.name = name
+        self.wType = wType
+        self.rarity = rarity
+        self.itemID = itemID
+    
+    class CustomDamage:
+        def __init__(self, base, dTypes, dRange):
+            self.base = base
+            self.dTypes = dTypes
+            self.dRange = dRange
+            self.mods = []
+        
+        class Mods:
+            def __init__(self):
+                pass
+
+            class Bonus:
+                def __init__(self):
+                    pass
+
+            class Slug:
+                def __init__(self):
+                    pass
+
+            def addBonus(self):
+                pass
+
+            def addSlug(self):
+                pass
+        
+        def addMod(self, modName, modID, activationChance=None, randomIndex=(0, 0), modifier=0, bonusAgainst=[], slugsAgainst=[]):
+            if activationChance == None and randomIndex == (0, 0) and modifier == 0 and bonusAgainst == [] and slugsAgainst == []:
+                raise SyntaxError("Did not provide at least 1 optional param.")
+    
+    def setCustomDamage(self, base, dTypes, dRange):
+        self.base = base
+        self.dTypes = dTypes
+        self.dRange = dRange
+        self.customDamage = self.CustomDamage(base, dTypes, dRange)
+
 if not os.path.exists(os.getcwd() + "\\environment") or not os.path.exists(os.getcwd() + "\\environment\\version.txt"):
     print("\nYikes uh it looks like you deleted the environment stuff... this makes ManyItems angery :(")
     print("The {0}\\environment folder tracks things like the true version to make sure that you're running on the right version.".format(os.getcwd()))
@@ -297,10 +347,94 @@ def createWLoadWindow():
         WLoadWindow.destroy()
     tk.Button(WLoadWindow, text="Load", command=loadWItem).grid(row=1)
 
+def viewWeapons():
+    wViewWin = tk.Toplevel(main)
+    tk.Label(wViewWin, text="View Weapons").grid(row=0, sticky=tk.W)
+    if not os.path.exists(os.getcwd() + "\\saves\\registry\\weapons.json"):
+        tk.Label(wViewWin, text="You don't have any weapons.").grid(row=1)
+        showwarning(title="No saves", message="You haven't made any weapons yet, or you deleted, moved, or altered the saves directory. Try making some saves, or resaving existing ones.")
+        return wViewWin.destroy()
+    def displayIndex(num, registry):
+        currentItem = {}
+        with open(os.getcwd() + "\\saves\\weapons\\{0}.json".format(registry["weapon_IDs"][num]), "r") as weapon:
+            currentItem = json.load(weapon)
+            weapon.close()
+        namel.config(text="Weapon Name: {0}".format(currentItem["name"]))
+        typel.config(text="Type: {0}".format(currentItem["type"]))
+        rarityl.config(text="Rarity: {0}".format(currentItem["rarity"]))
+        idl.config(text="Weapon ID: {0}".format(currentItem["itemID"]))
+        authorl.config(text="Author: {0}".format(currentItem["author"]))
+        notesl.config(text="Notes: {0}".format(currentItem["finalNotes"]))
+        versionl.config(text="Version created in: {0}".format(currentItem["itemVersion"]))
+        posl.config(text="{0} of {1}".format(num + 1, len(registry["weapon_IDs"])))
+    def searchWeapon():
+        global toSearchFor
+        toSearchFor = searchBox.get()
+        searchBox.delete(0, tk.END)
+        registry = {}
+        with open(os.getcwd() + "\\saves\\registry\\weapons.json", "r") as weapons_registry:
+            registry = json.load(weapons_registry)
+            weapons_registry.close()
+        if not toSearchFor in registry["weapon_IDs"]:
+            showwarning(title="Doesn't Exist", message="The weapon ID you searched for doesn't exist in your registry. Remember, these are case-sensitive.")
+            return
+        if not os.path.exists(os.getcwd() + "\\saves\\weapons\\{0}.json".format(toSearchFor)):
+            showwarning("Doesn't Exist", message="The weapon ID you searched for doesn't exist in your saves. Remember, these are case-sensitive.")
+            with open(os.getcwd() + "\\saves\\registry\\weapons.json", "w") as weapons_registry:
+                del registry["weapon_IDs"][toSearchFor]
+                json.dump(registry, weapons_registry, spaces=4)
+                weapons_registry.close()
+            return
+        displayIndex(registry["weapon_IDs"].index(toSearchFor), registry)
+    def goLeft():
+        if not registry["weapon_IDs"].index(toSearchFor) + 1 < 2:
+            searchBox.insert(0, registry["weapon_IDs"][registry["weapon_IDs"].index(toSearchFor) - 1])
+            searchWeapon()
+    def goRight():
+        if not registry["weapon_IDs"].index(toSearchFor) + 1 > len(registry["weapon_IDs"]):
+            searchBox.insert(0, registry["weapon_IDs"][registry["weapon_IDs"].index(toSearchFor) + 1])
+            searchWeapon()
+    searchFrame = tk.Frame(wViewWin, padx=5, pady=5)
+    searchFrame.grid(row=0, sticky=tk.W)
+    tk.Button(searchFrame, text="Search by ID", command=searchWeapon).grid(row=0, sticky=tk.W)
+    searchBox = tk.Entry(searchFrame)
+    searchBox.grid(row=0, column=1)
+    statsFrame = tk.Frame(wViewWin, padx=5, pady=5)
+    statsFrame.grid(row=1, sticky=tk.W)
+    tk.Label(statsFrame, text="Weapon Stats", fg="crimson").grid(row=0)
+    namel = tk.Label(statsFrame, text="Weapon Name:", wraplength=300)
+    namel.grid(row=1, sticky=tk.W)
+    typel = tk.Label(statsFrame, text="Type:", wraplength=300)
+    typel.grid(row=2, sticky=tk.W)
+    rarityl = tk.Label(statsFrame, text="Rarity:", wraplength=300)
+    rarityl.grid(row=3, sticky=tk.W)
+    idl = tk.Label(statsFrame, text="Weapon ID:", wraplength=300)
+    idl.grid(row=4, sticky=tk.W)
+    authorl = tk.Label(statsFrame, text="Author:", wraplength=300)
+    authorl.grid(row=5, sticky=tk.W)
+    notesl = tk.Label(statsFrame, text="Notes:", wraplength=300)
+    notesl.grid(row=6, sticky=tk.W)
+    versionl = tk.Label(statsFrame, text="Version created in:", wraplength=300)
+    versionl.grid(row=7, sticky=tk.W)
+    navFrame = tk.Frame(wViewWin, padx=5, pady=5)
+    navFrame.grid(row=2)
+    tk.Button(navFrame, text="<", width=4, command=goLeft).grid(row=0)
+    posl = tk.Label(navFrame, text="0 of 0")
+    posl.grid(row=0, column=1)
+    tk.Button(navFrame, text=">", width=4, command=goRight).grid(row=0, column=2)
+    registry = {}
+    with open(os.getcwd() + "\\saves\\registry\\weapons.json", "r") as weapons_registry:
+        registry = json.load(weapons_registry)
+        weapons_registry.close()
+    searchBox.insert(0, registry["weapon_IDs"][0])
+    searchWeapon()
+
 tk.Label(main, text="ManyItems - " + currentVersion).grid(row=0, sticky=tk.W)
-newItem = tk.Button(main, text="New Weapon", command=makeNewItem)
-newItem.grid(row=1, sticky=tk.W)
-loadItem = tk.Button(main, text="Load Weapon from Save", command=createWLoadWindow)
-loadItem.grid(row=2, sticky=tk.W)
+newWeapon = tk.Button(main, text="New Weapon", command=makeNewItem)
+newWeapon.grid(row=1, sticky=tk.W)
+loadWeapon = tk.Button(main, text="Load Weapon from Save", command=createWLoadWindow)
+loadWeapon.grid(row=2, sticky=tk.W)
+viewWeapon = tk.Button(main, text="View Weapons", command=viewWeapons)
+viewWeapon.grid(row=3, sticky=tk.W)
 
 main.mainloop()
