@@ -326,7 +326,7 @@ def makeNewItem(save=None):
                 print("-----> Updated registry.\n")
                 weapons_registry.close()
             subprocess.run("\"sync.bat\"")
-            print("---> Synced save to GitHub.\n")
+            print("\n---> Synced save to GitHub.\n")
             itemWin.destroy()
             print("-----> Item creation completed.\n")
     def confNoSave():
