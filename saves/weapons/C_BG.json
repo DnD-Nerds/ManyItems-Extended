@@ -1,0 +1,16 @@
+{
+    "customDamage": {
+        "base": {
+            "damage": "1",
+            "damageType": "ranged",
+            "range": "25/100"
+        }
+    },
+    "name": "Blow Gun",
+    "type": "Ranged",
+    "rarity": "common",
+    "author": "Foriobob",
+    "itemID": "C_BG",
+    "finalNotes": "",
+    "itemVersion": "Alpha v1.7"
+}
