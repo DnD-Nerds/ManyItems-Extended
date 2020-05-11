@@ -1,0 +1,16 @@
+{
+    "customDamage": {
+        "base": {
+            "damage": "1d8",
+            "damageType": "slashing,smashing",
+            "range": "20ft"
+        }
+    },
+    "name": "Battle Axe",
+    "type": "One handed Weapon",
+    "rarity": "Common",
+    "author": "Foriobob",
+    "itemID": "C_BA",
+    "finalNotes": "",
+    "itemVersion": "Alpha v1.7"
+}
