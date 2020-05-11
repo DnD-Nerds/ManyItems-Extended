@@ -391,7 +391,7 @@ def viewWeapons():
             searchBox.insert(0, registry["weapon_IDs"][registry["weapon_IDs"].index(toSearchFor) - 1])
             searchWeapon()
     def goRight():
-        if not registry["weapon_IDs"].index(toSearchFor) + 1 > len(registry["weapon_IDs"]):
+        if not registry["weapon_IDs"].index(toSearchFor) + 2 > len(registry["weapon_IDs"]):
             searchBox.insert(0, registry["weapon_IDs"][registry["weapon_IDs"].index(toSearchFor) + 1])
             searchWeapon()
     searchFrame = tk.Frame(wViewWin, padx=5, pady=5)
