@@ -185,6 +185,7 @@ def makeNewItem(save=None):
             bonusEnabled = tk.BooleanVar()
             tk.Label(bonusFrame, text="Bonus Against")
             def bonusAgainstInfo(): showinfo(title="Bonuses", message="Allows for the addition of modifiers when the weapon is used on a specific type of enemy")
+            tk.Button(bonusFrame, text="?", bg="lightblue", width=3, command=bonusAgainstInfo).grid(row=0, column=1)
             tk.Checkbutton(bonusFrame, variable=bonusEnabled, text="Bonus 1", onvalue=True, offvalue=False).grid(row=1, sticky=tk.W)
             bonusField = tk.Entry(bonusFrame)
             bonusField.grid(row=0, column=1, sticky=tk.W)
