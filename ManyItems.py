@@ -182,8 +182,10 @@ def makeNewItem(save=None):
             bonusFrame = tk.Frame(baseModWin, padx=5, pady=5)
             bonusFrame.grid(row=3, sticky=tk.W)
             tempBaseMod["bonusAgainst"] = []
+            bonusEnabled = tk.BooleanVar()
+            tk.Checkbutton(bonusFrame, variable=bonusEnabled, text="Bonus Against", onvalue=True, offvalue=False).grid(row=0, sticky=tk.W)
             bonusField = tk.Entry(bonusFrame)
-            bonusField.grid(row=1, column=1, sticky=tk.W)
+            bonusField.grid(row=0, column=1, sticky=tk.W)
 
             slugFrame = tk.Frame(baseModWin, padx=5, pady=5)
             slugField = tk.Entry(slugFrame)

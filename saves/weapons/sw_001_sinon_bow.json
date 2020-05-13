@@ -1,0 +1,16 @@
+{
+    "customDamage": {
+        "base": {
+            "damage": "500",
+            "damageType": "Piercing",
+            "range": "250 ft"
+        }
+    },
+    "name": "Sinon Bow",
+    "type": "Bow",
+    "rarity": "Exoctic",
+    "author": "Foriobob",
+    "itemID": "sw_001_sinon_bow",
+    "finalNotes": "A silver longbow with a string made of flexible Diamond thread.",
+    "itemVersion": "Alpha v1.7"
+}
