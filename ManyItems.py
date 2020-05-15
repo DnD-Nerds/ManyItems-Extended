@@ -276,7 +276,34 @@ def makeNewItem(save=None):
                 if (slug1Enabled or slug2Enabled or slug3Enabled) and (()):
                     passed = False
                 if passed == True:
-                    tempItem["customDamage"]["mods"][tempBaseMod["modID"]]
+                    tempBaseMod = {
+                        "modID": baseModIDField.get(),
+                        "base": {"random": {
+                            "enabled": randomEnabled.get(),"min": randomMinField.get(),"max": randomMaxField.get()},
+                            "activationChance": {"enabled": chanceEnabled.get(),"chance": chanceField.get()},
+                            "fixedModifier": {"enabled": fixEnabled.get(),"amount": fixField.get()}},
+                        "bonus": {"against": [{
+                            "enabled": bonus1Enabled.get(),"name": bonus1Field.get()},{
+                            "enabled": bonus2Enabled.get(),"name": bonus2Field.get()},{
+                            "enabled": bonus3Enabled.get(),"name": bonus3Field.get()}],
+                            "random": {"enabled": bonusRandomEnabled.get(),"min": bonusRandomMinField.get(),"max": bonusRandomMaxField.get()},
+                            "activationChance": {"enabled": bonusChanceEnabled.get(),"chance": bonusChanceField.get()},
+                            "fixedModifier": {"enabled": bonusFixEnabled.get(),"amount": bonusFixField.get()}},
+                        "slug": {"against": [{
+                            "enabled": slug1Enabled.get(),"name": slug1Field.get()},{
+                            "enabled": slug2Enabled.get(),"name": slug2Field.get()},{
+                            "enabled": slug3Enabled.get(),"name": slug3Field.get()}],
+                            "random": {"enabled": slugRandomEnabled.get(),"min": slugRandomMinField.get(),"max": slugRandomMaxField.get()},
+                            "activationChance": {"enabled": slugChanceEnabled.get(),"chance": slugChanceField.get()},
+                            "fixedModifier": {"enabled": slugFixEnabled.get(),"amount": slugFixField.get()}
+                        }
+                    }
+                    if not "mods" in tempItem["customDamage"]:
+                        tempItem["customDamage"]["mods"] = {}
+                    tempItem["customDamage"]["mods"][tempBaseMod["modID"]] = tempBaseMod
+                    if not "modIDs" in tempItem["customDamage"]:
+                        tempItem["customDamage"]["modIDs"] = []
+                    tempItem["customDamage"]["modIDs"].append(tempBaseMod["modID"])
                     baseModWin.destroy()
                 else:
                     showwarning(title="Empty Fields", text="You enabled something that required more information, but didn't provide it. This is probably due to enabling a slug or bonus without adding any kind of modifier.")
@@ -292,8 +319,8 @@ def makeNewItem(save=None):
         tk.Button(CDF_ModFrame, text="Edit Mod").grid(row=2, sticky=tk.W)
         def listBaseModIDs():
             if "customDamage" in tempItem:
-                if "baseModIDs" in tempItem["customDamage"]:
-                    showinfo(title="Base Mod ID List", message=str(tempItem["customDamage"]["baseModIDs"]))
+                if "modIDs" in tempItem["customDamage"]:
+                    showinfo(title="Base Mod ID List", message=str(tempItem["customDamage"]["modIDs"]))
                 else:
                     showinfo(title="Base Mod ID List", message="You haven't made any mods yet. Use the \"Add Mod\" button to make a new mod.")
             else:
