@@ -13,8 +13,8 @@ import subprocess
 
 currentVersion = "Alpha v1.8-dev"
 
-subprocess.run("\"download.bat\"")
-print("\nDownloaded saves")
+#subprocess.run("\"download.bat\"")
+#print("\nDownloaded saves")
 
 class Weapon:
     """Creates a new ManyItems Weapon. The class instance will need to be passed into functions in the future.
@@ -165,7 +165,7 @@ def makeNewItem(save=None):
             chanceEnabled = tk.BooleanVar()
             fixEnabled = tk.BooleanVar()
             modStatsFrame = tk.Frame(baseModWin, padx=5, pady=5)
-            modStatsFrame.grid(row=2, sticky=tk.W)
+            modStatsFrame.grid(row=2)
             tk.Label(modStatsFrame, text="Base Mod Stats").grid(row=0)
             tk.Checkbutton(modStatsFrame, variable=randomEnabled, text="Randomization", onvalue=True, offvalue=False).grid(row=1, sticky=tk.W)
             tk.Checkbutton(modStatsFrame, variable=chanceEnabled, text="Activation Chance", onvalue=True, offvalue=False).grid(row=2, sticky=tk.W)
@@ -185,9 +185,10 @@ def makeNewItem(save=None):
             def BMFixInfo(): showinfo(title="Fixed Modifier", message="A fixed modifier is a way to force a certain value to be added to an attack. For example, you can have a randomization and a fixed modifier, and even if the randomization is 0 (or whatever else it may be), the fixed modifier will be added to the randomized value. Or it could just be a constant value with no randomization.")
             tk.Button(modStatsFrame, text="?", bg="lightblue", width=3, command=BMFixInfo).grid(row=3, column=2, sticky=tk.W)
 
-            bonusFrame = tk.Frame(baseModWin, padx=5, pady=5)
-            bonusFrame.grid(row=3, sticky=tk.W)
-            tempBaseMod["bonusAgainst"] = []
+            slugBonusFrame = tk.Frame(baseModWin)
+            slugBonusFrame.grid(row=3)
+            bonusFrame = tk.Frame(slugBonusFrame, padx=5, pady=5)
+            bonusFrame.grid(row=0, sticky=tk.W)
             bonus1Enabled = tk.BooleanVar()
             bonus2Enabled = tk.BooleanVar()
             bonus3Enabled = tk.BooleanVar()
@@ -231,12 +232,54 @@ def makeNewItem(save=None):
             #def asBonusInfo(): showinfo(title="Forced Bonus Activation", message="You can set a mod to activate when the attack target is marked as a bonus in the mod.")
             #tk.Button(setAsBonusFrame, text="?", width=3, bg="lightblue", command=asBonusInfo)
 
-            slugFrame = tk.Frame(baseModWin, padx=5, pady=5)
-            slugField = tk.Entry(slugFrame)
-            slugField.grid(row=1, column=1, sticky=tk.W)
+            slugFrame = tk.Frame(slugBonusFrame, padx=5, pady=5)
+            slugFrame.grid(row=0, column=1, sticky=tk.W)
+            slug1Enabled = tk.BooleanVar()
+            slug2Enabled = tk.BooleanVar()
+            slug3Enabled = tk.BooleanVar()
+            slugTitleFrame = tk.Frame(slugFrame); slugTitleFrame.grid(row=0)
+            tk.Label(slugTitleFrame, text="Slug Against").grid(row=0)
+            def slugAgainstInfo(): showinfo(title="Slugs", message="Allows for the addition of negative modifiers when the weapon is used on a specific type of enemy. Modifiers will be added *negatively* to the mod stats at the top, if any.")
+            tk.Button(slugTitleFrame, text="?", bg="lightblue", width=3, command=slugAgainstInfo).grid(row=0, column=1, sticky=tk.W)
+            enableSlugs = tk.Frame(slugFrame)
+            enableSlugs.grid(row=1, sticky=tk.W)
+            tk.Checkbutton(enableSlugs, variable=slug1Enabled, text="Slug 1", onvalue=True, offvalue=False).grid(row=0, sticky=tk.W)
+            slug1Field = tk.Entry(enableSlugs)
+            slug1Field.grid(row=0, column=1, sticky=tk.W)
+            tk.Checkbutton(enableSlugs, variable=slug2Enabled, text="Slug 2", onvalue=True, offvalue=False).grid(row=1, sticky=tk.W)
+            slug2Field = tk.Entry(enableSlugs)
+            slug2Field.grid(row=1, column=1, sticky=tk.W)
+            tk.Checkbutton(enableSlugs, variable=slug3Enabled, text="Slug 3", onvalue=True, offvalue=False).grid(row=2, sticky=tk.W)
+            slug3Field = tk.Entry(enableSlugs)
+            slug3Field.grid(row=2, column=1, sticky=tk.W)
+            slugRandomEnabled = tk.BooleanVar()
+            slugChanceEnabled = tk.BooleanVar()
+            slugRandFrame = tk.Frame(slugFrame); slugRandFrame.grid(row=2, sticky=tk.W)
+            tk.Checkbutton(slugRandFrame, variable=slugRandomEnabled, text="Randomization", onvalue=True, offvalue=False).grid(row=0, sticky=tk.W)
+            slugChanceFrame = tk.Frame(slugFrame); slugChanceFrame.grid(row=3, sticky=tk.W)
+            tk.Checkbutton(slugChanceFrame, variable=slugChanceEnabled, text="Activation Chance", onvalue=True, offvalue=False).grid(row=0, sticky=tk.W)
+            slugRandomMinField = tk.Entry(slugRandFrame, width=5)
+            slugRandomMinField.grid(row=0, column=1, sticky=tk.W)
+            slugRandomMaxField = tk.Entry(slugRandFrame, width=5)
+            slugRandomMaxField.grid(row=0, column=2, sticky=tk.W)
+            slugChanceField = tk.Entry(slugChanceFrame, width=7)
+            slugChanceField.grid(row=0, column=1, sticky=tk.W)
+            slugFixFrame = tk.Frame(slugFrame)
+            slugFixFrame.grid(row=4, sticky=tk.W)
+            slugFixEnabled = tk.BooleanVar()
+            tk.Checkbutton(slugFixFrame, variable=slugFixEnabled, text="Fixed Modifier", onvalue=True, offvalue=False).grid(row=0, sticky=tk.W)
+            slugFixField = tk.Entry(slugFixFrame, width=5)
+            slugFixField.grid(row=0, column=1, sticky=tk.W)
 
             def finishBaseMod():
-                baseModWin.destroy()
+                passed = True
+                if (slug1Enabled or slug2Enabled or slug3Enabled) and (()):
+                    passed = False
+                if passed == True:
+                    tempItem["customDamage"]["mods"][tempBaseMod["modID"]]
+                    baseModWin.destroy()
+                else:
+                    showwarning(title="Empty Fields", text="You enabled something that required more information, but didn't provide it. This is probably due to enabling a slug or bonus without adding any kind of modifier.")
             tk.Button(baseModWin, text="Finish", command=finishBaseMod).grid(row=5)
             def confNoSaveBM():
                 if askyesno(title="Confirm", message="Are you sure you want to leave without saving?"):
@@ -316,7 +359,7 @@ def makeNewItem(save=None):
         passed = True
 
         for k in tempItem:
-            if tempItem[k] == "" or len(tempItem[k]) < 1:
+            if tempItem[k] == "":
                 showinfo(title="Missing Field Data", message="Your weapon is missing data in some fields.\n\nYou can use the \"Quit\" button to exit without saving, or make sure all your fields are filled in before continuing. Your weapon will still be saved without field data, but it isn't preferred that you leave things blank.")
                 break
         
