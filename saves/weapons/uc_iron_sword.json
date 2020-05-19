@@ -91,8 +91,8 @@
                         "max": "5"
                     },
                     "activationChance": {
-                        "enabled": false,
-                        "chance": ""
+                        "enabled": true,
+                        "chance": "25"
                     },
                     "fixedModifier": {
                         "enabled": true,
@@ -157,10 +157,88 @@
                         "amount": ""
                     }
                 }
+            },
+            "large_bonus": {
+                "modID": "large_bonus",
+                "base": {
+                    "random": {
+                        "enabled": true,
+                        "min": "5",
+                        "max": "12"
+                    },
+                    "activationChance": {
+                        "enabled": true,
+                        "chance": "10"
+                    },
+                    "fixedModifier": {
+                        "enabled": true,
+                        "amount": "4"
+                    }
+                },
+                "bonus": {
+                    "against": [
+                        {
+                            "enabled": true,
+                            "name": "unarmored"
+                        },
+                        {
+                            "enabled": true,
+                            "name": "light armor"
+                        },
+                        {
+                            "enabled": false,
+                            "name": ""
+                        }
+                    ],
+                    "random": {
+                        "enabled": true,
+                        "min": "2",
+                        "max": "5"
+                    },
+                    "activationChance": {
+                        "enabled": false,
+                        "chance": ""
+                    },
+                    "fixedModifier": {
+                        "enabled": true,
+                        "amount": "5"
+                    }
+                },
+                "slug": {
+                    "against": [
+                        {
+                            "enabled": false,
+                            "name": ""
+                        },
+                        {
+                            "enabled": false,
+                            "name": ""
+                        },
+                        {
+                            "enabled": false,
+                            "name": ""
+                        }
+                    ],
+                    "random": {
+                        "enabled": false,
+                        "min": "",
+                        "max": ""
+                    },
+                    "activationChance": {
+                        "enabled": false,
+                        "chance": ""
+                    },
+                    "fixedModifier": {
+                        "enabled": false,
+                        "amount": ""
+                    }
+                }
             }
         },
         "modIDs": [
             "example_all",
+            "small_bonus",
+            "large_bonus",
             "small_bonus"
         ]
     },
