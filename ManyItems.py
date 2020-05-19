@@ -11,7 +11,7 @@ import time
 
 import subprocess
 
-currentVersion = "Alpha v1.8-dev"
+currentVersion = "Alpha v1.8"
 
 subprocess.run("\"download.bat\"")
 print("\nDownloaded saves")
@@ -144,6 +144,7 @@ def makeNewItem(save=None):
            CDF_damageTypeField.insert(0, tempItem["customDamage"]["base"]["damageType"])
            CDF_rangeField.insert(0, tempItem["customDamage"]["base"]["range"])
         CDF_ModFrame = tk.Frame(customDamageWin, padx=5, pady=5)
+        CDF_ModFrame.grid(row=2, sticky=tk.W)
         tk.Label(CDF_ModFrame, text="Modifiers").grid(row=0, pady=7)
         def moddmginfo(): showinfo(title="Custom Damage: Base Modifiers", message="Base Modifiers (often referred to as \"mods\") are optional ways to make your weapon do many different things, such as adding randomization to your base damage, and adding strengths and weaknesses to it.\n\nThese can be overidden by attacks [Not yet implemented] or modified on in attacks.")
         tk.Button(CDF_ModFrame, text="?", width=3, command=moddmginfo, bg="lightblue").grid(row=0, column=1, sticky=tk.W)
@@ -156,7 +157,7 @@ def makeNewItem(save=None):
                 elif not "mods" in tempItem["customDamage"]:
                     tempBaseMod = {}
                 else:
-                    if save in tempItem["customDamage"]["mods"].keys():
+                    if save in tempItem["customDamage"]["modIDs"]:
                         tempBaseMod = tempItem["customDamage"]["mods"][save]
             baseModWin = tk.Toplevel(customDamageWin)
             tk.Label(baseModWin, text="Base Mod").grid(row=0)
@@ -351,8 +352,89 @@ def makeNewItem(save=None):
                     showinfo(title="Base Mod ID List", message="You haven't made any mods yet. Use the \"Add Mod\" button to make a new mod.")
             else:
                 showinfo(title="Base Mod ID List", message="You haven't made any mods yet. Use the \"Add Mod\" button to make a new mod.")
+        def viewMods():
+            mViewWin = tk.Toplevel(customDamageWin)
+            tk.Label(mViewWin, text="View Mods").grid(row=0, sticky=tk.W)
+            if not "mods" in tempItem["customDamage"] or len(tempItem["customDamage"]["modIDs"]) < 1:
+                tk.Label(mViewWin, text="You don't have any mods.").grid(row=1)
+                showwarning(title="No mods", message="You haven't made any mods yet, or you deleted, moved, or altered the saves/mods directory/file(s). Try making some mods, or resaving existing ones.")
+                return mViewWin.destroy()
+            def displayIndex(num, modIDs):
+                currentMod = tempItem["customDamage"]["mods"][tempItem["customDamage"]["modIDs"][num]]
+                posl.config(text="{0} of {1}".format(num + 1, len(modIDs)))
+                idl.config(text="Mod ID: {0}".format(currentMod["modID"]))
+                randl.config(text="Randomization: ({0}) -> {1} to {2}".format(currentMod["base"]["random"]["enabled"], currentMod["base"]["random"]["min"], currentMod["base"]["random"]["max"]))
+                chancel.config(text="Activation Chance: ({0}) -> {1}".format(currentMod["base"]["activationChance"]["enabled"], currentMod["base"]["activationChance"]["chance"]))
+                fixl.config(text="Fixed Modifier: ({0}) -> {1}".format(currentMod["base"]["fixedModifier"]["enabled"], currentMod["base"]["fixedModifier"]["amount"]))
+                b1l.config(text="Bonus 1: ({0}) -> {1}".format(currentMod["bonus"]["against"][0]["enabled"], currentMod["bonus"]["against"][0]["name"])); b2l.config(text="Bonus 2: ({0}) -> {1}".format(currentMod["bonus"]["against"][1]["enabled"], currentMod["bonus"]["against"][1]["name"])); b3l.config(text="Bonus 3: ({0}) -> {1}".format(currentMod["bonus"]["against"][2]["enabled"], currentMod["bonus"]["against"][2]["name"]))
+                brandl.config(text="Randomization: ({0}) -> {1} to {2}".format(currentMod["bonus"]["random"]["enabled"], currentMod["bonus"]["random"]["min"], currentMod["bonus"]["random"]["max"]))
+                bchancel.config(text="Activation Chance: ({0}) -> {1}".format(currentMod["bonus"]["activationChance"]["enabled"], currentMod["bonus"]["activationChance"]["chance"]))
+                bfixl.config(text="Fixed Modifier: ({0}) -> {1}".format(currentMod["bonus"]["fixedModifier"]["enabled"], currentMod["bonus"]["fixedModifier"]["amount"]))
+                s1l.config(text="Slug 1: ({0}) -> {1}".format(currentMod["slug"]["against"][0]["enabled"], currentMod["slug"]["against"][0]["name"])); s2l.config(text="Slug 2: ({0}) -> {1}".format(currentMod["slug"]["against"][1]["enabled"], currentMod["slug"]["against"][1]["name"])); s3l.config(text="Slug 3: ({0}) -> {1}".format(currentMod["slug"]["against"][2]["enabled"], currentMod["slug"]["against"][2]["name"]))
+                srandl.config(text="Randomization: ({0}) -> {1} to {2}".format(currentMod["slug"]["random"]["enabled"], currentMod["slug"]["random"]["min"], currentMod["slug"]["random"]["max"]))
+                schancel.config(text="Activation Chance: ({0}) -> {1}".format(currentMod["slug"]["activationChance"]["enabled"], currentMod["slug"]["activationChance"]["chance"]))
+                sfixl.config(text="Fixed Modifier: ({0}) -> {1}".format(currentMod["slug"]["fixedModifier"]["enabled"], currentMod["slug"]["fixedModifier"]["amount"]))
+            def searchMod():
+                global toSearchFor
+                toSearchFor = searchBox.get()
+                searchBox.delete(0, tk.END)
+                modIDs = tempItem["customDamage"]["modIDs"]
+                if not toSearchFor in modIDs:
+                    showwarning(title="Doesn't Exist", message="The mod ID you searched for doesn't exist in your current weapon. Remember, these are case-sensitive and weapon-specific.")
+                    return
+                displayIndex(modIDs.index(toSearchFor), modIDs)
+            def goLeft():
+                if not modIDs.index(toSearchFor) + 1 < 2:
+                    searchBox.insert(0, modIDs[modIDs.index(toSearchFor) - 1])
+                    searchMod()
+            def goRight():
+                if not modIDs.index(toSearchFor) + 2 > len(modIDs):
+                    searchBox.insert(0, modIDs[modIDs.index(toSearchFor) + 1])
+                    searchMod()
+            def loadThisMod():
+                mViewWin.destroy()
+                baseMod(toSearchFor)
+            searchFrame = tk.Frame(mViewWin, padx=5, pady=5)
+            searchFrame.grid(row=0, sticky=tk.W)
+            tk.Button(searchFrame, text="Search by ID", command=searchMod).grid(row=0, sticky=tk.W)
+            searchBox = tk.Entry(searchFrame)
+            searchBox.grid(row=0, column=1)
+            tk.Button(mViewWin, text="Edit this Mod", command=loadThisMod).grid(row=1, sticky=tk.W)
+            statsFrame = tk.Frame(mViewWin, padx=5, pady=5)
+            statsFrame.grid(row=2, sticky=tk.W)
+            tk.Label(statsFrame, text="Mod Stats", fg="crimson").grid(row=0)
+            idl = tk.Label(statsFrame, text="Mod ID:", wraplength=300); idl.grid(row=1)
+            statsBaseFrame = tk.Frame(statsFrame, padx=5, pady=5); statsBaseFrame.grid(row=2)
+            randl = tk.Label(statsBaseFrame, text="Randomization:", wraplength=300); randl.grid(row=0, sticky=tk.W)
+            chancel = tk.Label(statsBaseFrame, text="Activation Chance:", wraplength=300); chancel.grid(row=1, sticky=tk.W)
+            fixl = tk.Label(statsBaseFrame, text="Fixed Modifier:", wraplength=300); fixl.grid(row=2, sticky=tk.W)
+            statsBonusFrame = tk.Frame(statsFrame, padx=5, pady=5); statsBonusFrame.grid(row=3, sticky=tk.W)
+            b1l = tk.Label(statsBonusFrame, text="Bonus 1:", wraplength=300); b1l.grid(row=0, sticky=tk.W)
+            b2l = tk.Label(statsBonusFrame, text="Bonus 2:", wraplength=300); b2l.grid(row=1, sticky=tk.W)
+            b3l = tk.Label(statsBonusFrame, text="Bonus 3:", wraplength=300); b3l.grid(row=2, sticky=tk.W)
+            brandl = tk.Label(statsBonusFrame, text="Randomization:", wraplength=300); brandl.grid(row=3, sticky=tk.W)
+            bchancel = tk.Label(statsBonusFrame, text="Activation Chance:", wraplength=300); bchancel.grid(row=4, sticky=tk.W)
+            bfixl = tk.Label(statsBonusFrame, text="Fixed Modifier:", wraplength=300); bfixl.grid(row=5, sticky=tk.W)
+            statsSlugFrame = tk.Frame(statsFrame, padx=5, pady=5); statsSlugFrame.grid(row=3, column=1, sticky=tk.W)
+            s1l = tk.Label(statsSlugFrame, text="Slug 1:", wraplength=300); s1l.grid(row=0, sticky=tk.W)
+            s2l = tk.Label(statsSlugFrame, text="Slug 2:", wraplength=300); s2l.grid(row=1, sticky=tk.W)
+            s3l = tk.Label(statsSlugFrame, text="Slug 3:", wraplength=300); s3l.grid(row=2, sticky=tk.W)
+            srandl = tk.Label(statsSlugFrame, text="Randomization:", wraplength=300); srandl.grid(row=3, sticky=tk.W)
+            schancel = tk.Label(statsSlugFrame, text="Activation Chance:", wraplength=300); schancel.grid(row=4, sticky=tk.W)
+            sfixl = tk.Label(statsSlugFrame, text="Fixed Modifier:", wraplength=300); sfixl.grid(row=5, sticky=tk.W)
+            navFrame = tk.Frame(mViewWin, padx=5, pady=5)
+            navFrame.grid(row=4)
+            tk.Button(navFrame, text="<", width=4, command=goLeft).grid(row=0)
+            posl = tk.Label(navFrame, text="0 of 0")
+            posl.grid(row=0, column=1)
+            tk.Button(navFrame, text=">", width=4, command=goRight).grid(row=0, column=2)
+            def endView(): mViewWin.destroy()
+            tk.Button(mViewWin, text="Finish", command=endView).grid(row=4)
+            modIDs = list(tempItem["customDamage"]["modIDs"])
+            searchBox.insert(0, modIDs[0])
+            searchMod()
         tk.Button(CDF_ModFrame, text="[]", width=3, command=listBaseModIDs, bg="lightgreen").grid(row=2, column=1, sticky=tk.W)
-        CDF_ModFrame.grid(row=2, sticky=tk.W)
+        tk.Button(CDF_ModFrame, text="View Mods", command=viewMods).grid(row=3, sticky=tk.W)
         def finishCustomDamage():
             tempItem["customDamage"] = {
                 "base": {

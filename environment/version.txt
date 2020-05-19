@@ -1,1 +1,1 @@
-Alpha v1.8-dev
+Alpha v1.8
