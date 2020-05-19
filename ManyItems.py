@@ -289,7 +289,6 @@ def makeNewItem(save=None):
                 slugFixField.insert(0, tempBaseMod["slug"]["fixedModifier"]["amount"]); slugFixEnabled.set(tempBaseMod["slug"]["fixedModifier"]["enabled"])
             def finishBaseMod():
                 passed = True
-                if slugRandomMinField.get() == slugRandomMaxField.get() or bonusRandomMinField.get() == bonusRandomMaxField.get(): passed = False
                 validID = re.search(r"^[a-zA-Z0-9_\-]+$", baseModIDField.get())
                 if validID == None:
                     showinfo(title="Invalid Mod ID", message="You provided an invalid Mod ID. IDs may contain upper or lowercase ASCII letters, numerals 0-9, underscores, and hyphens, no spaces.")
@@ -324,8 +323,8 @@ def makeNewItem(save=None):
                         tempItem["customDamage"]["modIDs"] = []
                     tempItem["customDamage"]["modIDs"].append(tempBaseMod["modID"])
                     baseModWin.destroy()
-                else:
-                    showwarning(title="Empty Fields", message="You enabled something that required more information, but didn't provide it. This is probably due to enabling a slug or bonus without adding any kind of modifier.")
+                #else:
+                    #showwarning(title="Empty Fields", message="You enabled something that required more information, but didn't provide it. This is probably due to enabling a slug or bonus without adding any kind of modifier.")
             tk.Button(baseModWin, text="Finish", command=finishBaseMod).grid(row=5)
             def confNoSaveBM():
                 if askyesno(title="Confirm", message="Are you sure you want to leave without saving?"):
