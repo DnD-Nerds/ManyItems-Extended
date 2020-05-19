@@ -81,10 +81,87 @@
                         "amount": "3"
                     }
                 }
+            },
+            "small_bonus": {
+                "modID": "small_bonus",
+                "base": {
+                    "random": {
+                        "enabled": true,
+                        "min": "1",
+                        "max": "5"
+                    },
+                    "activationChance": {
+                        "enabled": false,
+                        "chance": ""
+                    },
+                    "fixedModifier": {
+                        "enabled": true,
+                        "amount": "2"
+                    }
+                },
+                "bonus": {
+                    "against": [
+                        {
+                            "enabled": true,
+                            "name": "unarmored"
+                        },
+                        {
+                            "enabled": false,
+                            "name": ""
+                        },
+                        {
+                            "enabled": false,
+                            "name": ""
+                        }
+                    ],
+                    "random": {
+                        "enabled": false,
+                        "min": "",
+                        "max": ""
+                    },
+                    "activationChance": {
+                        "enabled": false,
+                        "chance": ""
+                    },
+                    "fixedModifier": {
+                        "enabled": true,
+                        "amount": "3"
+                    }
+                },
+                "slug": {
+                    "against": [
+                        {
+                            "enabled": false,
+                            "name": ""
+                        },
+                        {
+                            "enabled": false,
+                            "name": ""
+                        },
+                        {
+                            "enabled": false,
+                            "name": ""
+                        }
+                    ],
+                    "random": {
+                        "enabled": false,
+                        "min": "",
+                        "max": ""
+                    },
+                    "activationChance": {
+                        "enabled": false,
+                        "chance": ""
+                    },
+                    "fixedModifier": {
+                        "enabled": false,
+                        "amount": ""
+                    }
+                }
             }
         },
         "modIDs": [
-            "example_all"
+            "example_all",
+            "small_bonus"
         ]
     },
     "name": "Iron Sword",
@@ -93,5 +170,5 @@
     "author": "WubzyGD",
     "itemID": "uc_iron_sword",
     "finalNotes": "Basic sword found in almost any shop; no special qualities about it.",
-    "itemVersion": "Alpha v1.8-dev"
+    "itemVersion": "Alpha v1.8"
 }
