@@ -4,88 +4,7 @@
             "damage": "15",
             "damageType": "Slashing",
             "range": "20ft"
-        },
-        "mods": {
-            "example_all": {
-                "modID": "example_all",
-                "base": {
-                    "random": {
-                        "enabled": true,
-                        "min": "5",
-                        "max": "10"
-                    },
-                    "activationChance": {
-                        "enabled": true,
-                        "chance": "75"
-                    },
-                    "fixedModifier": {
-                        "enabled": true,
-                        "amount": "5"
-                    }
-                },
-                "bonus": {
-                    "against": [
-                        {
-                            "enabled": true,
-                            "name": "flame"
-                        },
-                        {
-                            "enabled": true,
-                            "name": "undead"
-                        },
-                        {
-                            "enabled": true,
-                            "name": "zombie"
-                        }
-                    ],
-                    "random": {
-                        "enabled": true,
-                        "min": "5",
-                        "max": "10"
-                    },
-                    "activationChance": {
-                        "enabled": true,
-                        "chance": "50"
-                    },
-                    "fixedModifier": {
-                        "enabled": true,
-                        "amount": "3"
-                    }
-                },
-                "slug": {
-                    "against": [
-                        {
-                            "enabled": true,
-                            "name": "energy"
-                        },
-                        {
-                            "enabled": true,
-                            "name": "water"
-                        },
-                        {
-                            "enabled": true,
-                            "name": "skeleton"
-                        }
-                    ],
-                    "random": {
-                        "enabled": true,
-                        "min": "5",
-                        "max": "10"
-                    },
-                    "activationChance": {
-                        "enabled": true,
-                        "chance": "50"
-                    },
-                    "fixedModifier": {
-                        "enabled": true,
-                        "amount": "3"
-                    }
-                }
-            }
-        },
-        "modIDs": [
-            "example_all"
-        ]
+        }
     },
     "name": "Iron Sword",
     "type": "Sword",
@@ -93,5 +12,5 @@
     "author": "WubzyGD",
     "itemID": "uc_iron_sword",
     "finalNotes": "Basic sword found in almost any shop; no special qualities about it.",
-    "itemVersion": "Alpha v1.8-dev"
+    "itemVersion": "Alpha v1.8"
 }
