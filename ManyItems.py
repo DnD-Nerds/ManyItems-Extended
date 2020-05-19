@@ -325,7 +325,7 @@ def makeNewItem(save=None):
                     tempItem["customDamage"]["modIDs"].append(tempBaseMod["modID"])
                     baseModWin.destroy()
                 else:
-                    showwarning(title="Empty Fields", text="You enabled something that required more information, but didn't provide it. This is probably due to enabling a slug or bonus without adding any kind of modifier.")
+                    showwarning(title="Empty Fields", message="You enabled something that required more information, but didn't provide it. This is probably due to enabling a slug or bonus without adding any kind of modifier.")
             tk.Button(baseModWin, text="Finish", command=finishBaseMod).grid(row=5)
             def confNoSaveBM():
                 if askyesno(title="Confirm", message="Are you sure you want to leave without saving?"):
