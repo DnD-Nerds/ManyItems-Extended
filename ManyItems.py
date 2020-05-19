@@ -13,8 +13,8 @@ import subprocess
 
 currentVersion = "Alpha v1.8-dev"
 
-#subprocess.run("\"download.bat\"")
-#print("\nDownloaded saves")
+subprocess.run("\"download.bat\"")
+print("\nDownloaded saves")
 
 class Weapon:
     """Creates a new ManyItems Weapon. The class instance will need to be passed into functions in the future.
@@ -150,6 +150,14 @@ def makeNewItem(save=None):
         
         def baseMod(save=None):
             tempBaseMod = {}
+            if not save == None:
+                if not "customDamage" in tempItem:
+                    tempBaseMod = {}
+                elif not "mods" in tempItem["customDamage"]:
+                    tempBaseMod = {}
+                else:
+                    if save in tempItem["customDamage"]["mods"].keys():
+                        tempBaseMod = tempItem["customDamage"]["mods"][save]
             baseModWin = tk.Toplevel(customDamageWin)
             tk.Label(baseModWin, text="Base Mod").grid(row=0)
 
@@ -225,12 +233,6 @@ def makeNewItem(save=None):
             tk.Checkbutton(bonusFixFrame, variable=bonusFixEnabled, text="Fixed Modifier", onvalue=True, offvalue=False).grid(row=0, sticky=tk.W)
             bonusFixField = tk.Entry(bonusFixFrame, width=5)
             bonusFixField.grid(row=0, column=1, sticky=tk.W)
-            #setAsBonusFrame = tk.Frame(bonusFrame, padx=5, pady=5)
-            #setAsBonusFrame.grid(row=5, sticky=tk.W)
-            #asBonusB = tk.BooleanVar()
-            #tk.Checkbutton(setAsBonusFrame, variable=asBonusB, text="Set Mod as Bonus-Activation", onvalue=True, offvalue=False).grid(row=0, sticky=tk.W)
-            #def asBonusInfo(): showinfo(title="Forced Bonus Activation", message="You can set a mod to activate when the attack target is marked as a bonus in the mod.")
-            #tk.Button(setAsBonusFrame, text="?", width=3, bg="lightblue", command=asBonusInfo)
 
             slugFrame = tk.Frame(slugBonusFrame, padx=5, pady=5)
             slugFrame.grid(row=0, column=1, sticky=tk.W)
@@ -271,9 +273,25 @@ def makeNewItem(save=None):
             slugFixField = tk.Entry(slugFixFrame, width=5)
             slugFixField.grid(row=0, column=1, sticky=tk.W)
 
+            if not save == None:
+                baseModIDField.insert(0, tempBaseMod["modID"])
+                randomMinField.insert(0, tempBaseMod["base"]["random"]["min"]); randomMaxField.insert(0, tempBaseMod["base"]["random"]["max"]); randomEnabled.set(tempBaseMod["base"]["random"]["enabled"])
+                chanceField.insert(0, tempBaseMod["base"]["activationChance"]["chance"]); chanceEnabled.set(tempBaseMod["base"]["activationChance"]["enabled"])
+                fixField.insert(0, tempBaseMod["base"]["fixedModifier"]["amount"]); fixEnabled.set(tempBaseMod["base"]["fixedModifier"]["enabled"])
+                bonus1Field.insert(0, tempBaseMod["bonus"]["against"][0]["name"]); bonus1Enabled.set(tempBaseMod["bonus"]["against"][0]["enabled"]); bonus2Field.insert(0, tempBaseMod["bonus"]["against"][1]["name"]); bonus2Enabled.set(tempBaseMod["bonus"]["against"][1]["enabled"]); bonus3Field.insert(0, tempBaseMod["bonus"]["against"][2]["name"]); bonus3Enabled.set(tempBaseMod["bonus"]["against"][2]["enabled"])
+                bonusRandomMinField.insert(0, tempBaseMod["bonus"]["random"]["min"]); bonusRandomMaxField.insert(0, tempBaseMod["bonus"]["random"]["max"]); bonusRandomEnabled.set(tempBaseMod["bonus"]["random"]["enabled"])
+                bonusChanceField.insert(0, tempBaseMod["bonus"]["activationChance"]["chance"]); bonusChanceEnabled.set(tempBaseMod["bonus"]["activationChance"]["enabled"])
+                bonusFixField.insert(0, tempBaseMod["bonus"]["fixedModifier"]["amount"]); bonusFixEnabled.set(tempBaseMod["bonus"]["fixedModifier"]["enabled"])
+                slug1Field.insert(0, tempBaseMod["slug"]["against"][0]["name"]); slug1Enabled.set(tempBaseMod["slug"]["against"][0]["enabled"]); slug2Field.insert(0, tempBaseMod["slug"]["against"][1]["name"]); slug2Enabled.set(tempBaseMod["slug"]["against"][1]["enabled"]); slug3Field.insert(0, tempBaseMod["slug"]["against"][2]["name"]); slug3Enabled.set(tempBaseMod["slug"]["against"][2]["enabled"])
+                slugRandomMinField.insert(0, tempBaseMod["slug"]["random"]["min"]); slugRandomMaxField.insert(0, tempBaseMod["slug"]["random"]["max"]); slugRandomEnabled.set(tempBaseMod["slug"]["random"]["enabled"])
+                slugChanceField.insert(0, tempBaseMod["slug"]["activationChance"]["chance"]); slugChanceEnabled.set(tempBaseMod["slug"]["activationChance"]["enabled"])
+                slugFixField.insert(0, tempBaseMod["slug"]["fixedModifier"]["amount"]); slugFixEnabled.set(tempBaseMod["slug"]["fixedModifier"]["enabled"])
             def finishBaseMod():
                 passed = True
-                if (slug1Enabled or slug2Enabled or slug3Enabled) and (()):
+                if slugRandomMinField.get() == slugRandomMaxField.get() or bonusRandomMinField.get() == bonusRandomMaxField.get(): passed = False
+                validID = re.search(r"^[a-zA-Z0-9_\-]+$", baseModIDField.get())
+                if validID == None:
+                    showinfo(title="Invalid Mod ID", message="You provided an invalid Mod ID. IDs may contain upper or lowercase ASCII letters, numerals 0-9, underscores, and hyphens, no spaces.")
                     passed = False
                 if passed == True:
                     tempBaseMod = {
@@ -314,9 +332,17 @@ def makeNewItem(save=None):
                     print("-----> Base mod stats completed.\n")
                     baseModWin.destroy()
             tk.Button(baseModWin, text="Quit", command=confNoSaveBM).grid(row=6)
-
+        def createWMLoadWindow():
+            WMLoadWindow = tk.Toplevel(customDamageWin)
+            tk.Label(WMLoadWindow, text="Weapon Mod Item ID").grid(row=0, sticky=tk.W)
+            modIDField = tk.Entry(WMLoadWindow, width=13)
+            modIDField.grid(row=0, column=1, sticky=tk.W)
+            def loadWMod():
+                baseMod(modIDField.get())
+                WMLoadWindow.destroy()
+            tk.Button(WMLoadWindow, text="Load", command=loadWMod).grid(row=1)
         tk.Button(CDF_ModFrame, text="Add Mod", command=baseMod).grid(row=1, sticky=tk.W)
-        tk.Button(CDF_ModFrame, text="Edit Mod").grid(row=2, sticky=tk.W)
+        tk.Button(CDF_ModFrame, text="Edit Mod", command=createWMLoadWindow).grid(row=2, sticky=tk.W)
         def listBaseModIDs():
             if "customDamage" in tempItem:
                 if "modIDs" in tempItem["customDamage"]:
@@ -393,7 +419,7 @@ def makeNewItem(save=None):
         if passed == True:
             validID = re.search(r"^[a-zA-Z0-9_\-]+$", tempItem["itemID"])
             if validID == None:
-                showinfo(title="Invalid Item ID", message="You provided an invalid Item ID. IDs may contain upper or lowercase ASCII letters, numerals 0-9, underscores, and hyphens, no spaces.\n\nIf you click \"Finish\" again with an invalid ID, your weapon will not be saved, as the ID will be the save file name.")
+                showinfo(title="Invalid Item ID", message="You provided an invalid Item ID. IDs may contain upper or lowercase ASCII letters, numerals 0-9, underscores, and hyphens, no spaces.")
                 passed = False
                 print("-----> Found invalid Item ID.\n")
         
