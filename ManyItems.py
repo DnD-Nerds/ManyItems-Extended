@@ -435,12 +435,10 @@ def makeNewItem(save=None):
         tk.Button(CDF_ModFrame, text="[]", width=3, command=listBaseModIDs, bg="lightgreen").grid(row=2, column=1, sticky=tk.W)
         tk.Button(CDF_ModFrame, text="View Mods", command=viewMods).grid(row=3, sticky=tk.W)
         def finishCustomDamage():
-            tempItem["customDamage"] = {
-                "base": {
-                    "damage": CDF_damageField.get(),
-                    "damageType": CDF_damageTypeField.get(),
-                    "range": CDF_rangeField.get()
-                }
+            tempItem["customDamage"]["base"] = {
+                "damage": CDF_damageField.get(),
+                "damageType": CDF_damageTypeField.get(),
+                "range": CDF_rangeField.get()
             }
             print("-----> Custom damage stats updated.\n")
 
