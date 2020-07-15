@@ -1,9 +1,9 @@
 {
     "customDamage": {
         "base": {
-            "damage": "",
-            "damageType": "",
-            "range": ""
+            "damage": "300",
+            "damageType": "Burning, Slicing",
+            "range": "100ft"
         },
         "mods": {
             "added_sausage": {
