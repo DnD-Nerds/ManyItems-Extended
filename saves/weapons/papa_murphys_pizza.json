@@ -1,0 +1,97 @@
+{
+    "customDamage": {
+        "base": {
+            "damage": "",
+            "damageType": "",
+            "range": ""
+        },
+        "mods": {
+            "added_sausage": {
+                "modID": "added_sausage",
+                "base": {
+                    "random": {
+                        "enabled": true,
+                        "min": "50",
+                        "max": "200"
+                    },
+                    "activationChance": {
+                        "enabled": true,
+                        "chance": "5"
+                    },
+                    "fixedModifier": {
+                        "enabled": true,
+                        "amount": "15"
+                    }
+                },
+                "bonus": {
+                    "against": [
+                        {
+                            "enabled": true,
+                            "name": "Human"
+                        },
+                        {
+                            "enabled": false,
+                            "name": ""
+                        },
+                        {
+                            "enabled": false,
+                            "name": ""
+                        }
+                    ],
+                    "random": {
+                        "enabled": false,
+                        "min": "",
+                        "max": ""
+                    },
+                    "activationChance": {
+                        "enabled": false,
+                        "chance": ""
+                    },
+                    "fixedModifier": {
+                        "enabled": true,
+                        "amount": "20"
+                    }
+                },
+                "slug": {
+                    "against": [
+                        {
+                            "enabled": true,
+                            "name": "Tiefling"
+                        },
+                        {
+                            "enabled": true,
+                            "name": "A m e l i a"
+                        },
+                        {
+                            "enabled": false,
+                            "name": ""
+                        }
+                    ],
+                    "random": {
+                        "enabled": false,
+                        "min": "",
+                        "max": ""
+                    },
+                    "activationChance": {
+                        "enabled": false,
+                        "chance": ""
+                    },
+                    "fixedModifier": {
+                        "enabled": true,
+                        "amount": "50"
+                    }
+                }
+            }
+        },
+        "modIDs": [
+            "added_sausage"
+        ]
+    },
+    "name": "Papa Murphy's Pizza",
+    "type": "Ranged",
+    "rarity": "Exotic",
+    "author": "Rose",
+    "itemID": "papa_murphys_pizza",
+    "finalNotes": "Is a rare and volatile weapon that can kill the user if not handled with caution.\n\nPepperoni not included. Caution: Contents may be hot.",
+    "itemVersion": "Alpha v1.8"
+}
