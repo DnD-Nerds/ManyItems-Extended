@@ -1,0 +1,97 @@
+{
+    "customDamage": {
+        "base": {
+            "damage": "20",
+            "damageType": "Flame, Piercing",
+            "range": "40ft"
+        },
+        "mods": {
+            "test": {
+                "modID": "test",
+                "base": {
+                    "random": {
+                        "enabled": true,
+                        "min": "5",
+                        "max": "20"
+                    },
+                    "activationChance": {
+                        "enabled": true,
+                        "chance": "90"
+                    },
+                    "fixedModifier": {
+                        "enabled": true,
+                        "amount": "6"
+                    }
+                },
+                "bonus": {
+                    "against": [
+                        {
+                            "enabled": true,
+                            "name": "Zombie"
+                        },
+                        {
+                            "enabled": false,
+                            "name": ""
+                        },
+                        {
+                            "enabled": false,
+                            "name": ""
+                        }
+                    ],
+                    "random": {
+                        "enabled": false,
+                        "min": "",
+                        "max": ""
+                    },
+                    "activationChance": {
+                        "enabled": false,
+                        "chance": ""
+                    },
+                    "fixedModifier": {
+                        "enabled": true,
+                        "amount": "5"
+                    }
+                },
+                "slug": {
+                    "against": [
+                        {
+                            "enabled": false,
+                            "name": ""
+                        },
+                        {
+                            "enabled": false,
+                            "name": ""
+                        },
+                        {
+                            "enabled": false,
+                            "name": ""
+                        }
+                    ],
+                    "random": {
+                        "enabled": false,
+                        "min": "",
+                        "max": ""
+                    },
+                    "activationChance": {
+                        "enabled": false,
+                        "chance": ""
+                    },
+                    "fixedModifier": {
+                        "enabled": false,
+                        "amount": ""
+                    }
+                }
+            }
+        },
+        "modIDs": [
+            "test"
+        ]
+    },
+    "name": "Flaming Sword",
+    "type": "Sword",
+    "rarity": "Legendary",
+    "author": "Wubzy",
+    "itemID": "flaming_sword",
+    "finalNotes": "such wow very sword",
+    "itemVersion": "Alpha v1.8"
+}
