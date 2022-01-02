@@ -1,0 +1,97 @@
+{
+    "customDamage": {
+        "base": {
+            "damage": "10",
+            "damageType": "slicing",
+            "range": "30"
+        },
+        "mods": {
+            "bonk": {
+                "modID": "bonk",
+                "base": {
+                    "random": {
+                        "enabled": true,
+                        "min": "5",
+                        "max": "100"
+                    },
+                    "activationChance": {
+                        "enabled": true,
+                        "chance": "60"
+                    },
+                    "fixedModifier": {
+                        "enabled": false,
+                        "amount": ""
+                    }
+                },
+                "bonus": {
+                    "against": [
+                        {
+                            "enabled": true,
+                            "name": "skeleton"
+                        },
+                        {
+                            "enabled": false,
+                            "name": ""
+                        },
+                        {
+                            "enabled": false,
+                            "name": ""
+                        }
+                    ],
+                    "random": {
+                        "enabled": false,
+                        "min": "",
+                        "max": ""
+                    },
+                    "activationChance": {
+                        "enabled": false,
+                        "chance": ""
+                    },
+                    "fixedModifier": {
+                        "enabled": true,
+                        "amount": "7"
+                    }
+                },
+                "slug": {
+                    "against": [
+                        {
+                            "enabled": false,
+                            "name": ""
+                        },
+                        {
+                            "enabled": false,
+                            "name": ""
+                        },
+                        {
+                            "enabled": false,
+                            "name": ""
+                        }
+                    ],
+                    "random": {
+                        "enabled": false,
+                        "min": "",
+                        "max": ""
+                    },
+                    "activationChance": {
+                        "enabled": false,
+                        "chance": ""
+                    },
+                    "fixedModifier": {
+                        "enabled": false,
+                        "amount": ""
+                    }
+                }
+            }
+        },
+        "modIDs": [
+            "bonk"
+        ]
+    },
+    "name": "iron sword",
+    "type": "Sword",
+    "rarity": "rare",
+    "author": "Wubzy",
+    "itemID": "demo_is",
+    "finalNotes": "really cool sword",
+    "itemVersion": "Alpha v1.8"
+}
